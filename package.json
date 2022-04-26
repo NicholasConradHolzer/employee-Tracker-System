@@ -1,0 +1,32 @@
+{
+  "name": "nch-employee-tracking-system",
+  "version": "1.0.0",
+  "description": "a cl employee tracking system",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^14.3.2",
+    "express": "^4.17.3",
+    "inquirer": "^8.2.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NicholasConradHolzer/employee-Tracker-System.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NicholasConradHolzer/employee-Tracker-System/issues"
+  },
+  "homepage": "https://github.com/NicholasConradHolzer/employee-Tracker-System#readme"
+}
