@@ -26,13 +26,13 @@ VALUES
     ('Bon Jovi', 'John', 1, NULL), /*1*/
 
     /*Management*/
-    ('Osbourne', 'John', 2, 1), /*2*/
+    ('Wambly', 'Dan', 2, 1), /*2*/
 
 
     /*Business Admin & Logistics/Human Resources*/
-    ('Wylde', 'Zakk', 3, 2), /*4*/
+    ('Danbly', 'Wan', 3, 2), /*4*/
 
     /*Product Development Team*/
-    ('Vai', 'Steve', 5, 3), /*7*/
+    ('Thibildur', 'Bob', 5, 3), /*7*/
 
 
