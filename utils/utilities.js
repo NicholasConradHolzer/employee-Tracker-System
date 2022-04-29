@@ -27,7 +27,7 @@ async function dataMake() {
         const viewMenu = act.viewMenu()
         const editMenu = act.viewMenu()
     // .choices signifier used to deactivate infinite loop bug
-    switch(menu) {
+    switch(menu.tagoutlockout) {
         case 'View Data':
             await inq.prompt(viewMenu);
                 break;
