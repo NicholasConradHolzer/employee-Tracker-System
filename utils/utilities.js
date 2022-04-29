@@ -27,7 +27,7 @@ async function dataMake() {
         const viewMenu = act.viewMenu()
         const editMenu = act.viewMenu()
     // .choices signifier used to deactivate infinite loop bug
-    switch(menu.choices) {
+    switch(menu) {
         case 'View Data':
             await inq.prompt(viewMenu);
                 break;
@@ -109,7 +109,7 @@ async function dataMake() {
         case 'Exit':
             cancellor();
                 break;
-                
+
         default:
             break;
     }
