@@ -1,61 +1,98 @@
-
 class EmployeeData {
+    
+    constructor (ion) {
+        this.db = ion
+    }
+    /* , *//* , */
+        vwDpts() {
+            const sqlCOM = `
+                SELECT * FROM department
+            `;
+            const [ row ] = this.db.query(sqlCOM)
+                return row
+        }
+    /* , */   
+        vwRls() {
+            const sqlCOM = `
+                SELECT * FROM roles
+            `;
+            const [rows]= this.db.query(sqlCOM)
+                return rows
+        }
+    /* , */
+        vwEmps() {
+            const sqlCOM = `
+                SELECT employee.last_name, employee.first_name, employee.id, 
+                roles.title AS title, 
+                department.dpt_name AS department, 
+                roles.salary AS salary,
+                CONCAT(man.first_name, ' ', man.last_name) AS manager
+                FROM employee e
+                LEFT JOIN roles ON e.role_id= roles.id
+                LEFT JOIN department ON roles.dpt_id = department.dpt_id
+                LEFT JOIN employee m ON m.id = e.man_id
+            `
+            const [ rows ] = this.db.query(sqlCOM)
+                return rows
+        }        
+    /* , */ 
+        addDpt (dpts) {
+            const sql = `
+                INSERT INTO department (dpt_name) VALUES (?)
+            `;
 
-constructor (ion) {
-    this.db = ion
-}
-/* , *//* , */
-    vwDpts() {
-        const sqlCOM = 'SELECT * FROM departments';
-        const [ row ] = await this.db.query(sqlCOM)
-            return row
-    }
-/* , */
-    vwEmps() {
-        const sqlCOM = `
-            SELECT employee.id, employee.last_name, employee.first_name, roles.title AS title, departments.dpt_name AS departments, roles.salary AS salary,
-            CONCAT(man.last_name, ' ', man.first_name) AS manager
-            FROM employee e
-            LEFT JOIN roles ON e.role_id= roles.id
-            LEFT JOIN departments ON roles.dpt_id = departments.id
-            LEFT JOIN employee m ON m.id = e.man_id
-        `
-        const [ rows ] = await this.db.query(sqlCOM)
-            return rows
-    }        
-/* , */    
-    vwRls() {
-        const sqlCOM = `SELECT * FROM roles`;
-        const [rows]= await this.db.query(sqlCOM)
-            return rows
-    }
-/* , */
-    addEmp ({ last_name, first_name, role_id, man_id}) {
-        try {
-            console.log(last_name, first_name, role_id, man_id)
-            const sql = `INSERT INTO employee (last_name, first_name, role_id, man_id) VALUES (?, ?, ?,?)`;
-            const [ result ] = await this.db.execute(sql, [last_name,first_name, role_id, man_id])
-            if (result.affectedRows === 1) 
-                return this.vwEmps()
+            const [ result ] = this.db.execute (sql, [dpts])
+                if (result.affectedRows === 1) return this.vwDpts()
         }
-        catch (error) {
-            console.log(error)
-                return 'enter valid roles_id or man_id\n'
+    /* , */
+        addRole ({title, salary, dpt_id}) {
+            const sql = `
+                INSERT INTO roles (title, salary, dpt_id) VALUES (?, ?, ?)
+            `;
+
+            const [ result ] = this.db.execute (
+                sql, [title, salary, dpt_id]
+            )
+                if (result.affectedRows === 1) 
+                    return this.vwRls()
         }
-    }
-/* , */   
-    addDpt (dpts) {
-        const sql = `INSERT INTO departments (dpt_name) VALUES (?)`;
-        const [ result ] = await this.db.execute (sql, [dpts])
-            if (result.affectedRows === 1) return this.vwDpts()
-    }
-/* , */   
-    addRole ({title, salary, dpt_id}) {
-        const sql = `INSERT INTO roles (title, salary, dpt_id) VALUES (?, ?, ?)`;
-        const [ result ] = await this.db.execute (sql, [title, salary, dpt_id])
-            if (result.affectedRows === 1) 
-                return this.vwRls()
-    }
+    /* , */
+        addEmp ({ last_name, first_name, role_id, man_id}) {
+            try {
+                console.log(last_name, first_name, role_id, man_id)
+                const sql = `
+                    INSERT INTO employee (last_name, first_name, role_id, dpt_id, man_id) VALUES (?, ?, ?, ?, ?)
+                `;
+                const [ result ] = this.db.execute(
+                    sql, [last_name,first_name, role_id, man_id]
+                )
+                    if (result.affectedRows === 1) 
+                        return this.vwEmps()
+            }
+
+            catch (error) {
+                console.log(error)
+                    return 'enter valid roles_id or man_id\n'
+            }
+        }
+    /* , */
+        deleteEmp ({ last_name, first_name, role_id, man_id}) {
+            try {
+                console.log(last_name, first_name, role_id, man_id)
+                const sql = `
+                    DELETE FROM employee (last_name, first_name, role_id, man_id) VALUES (?, ?, ?,?)
+                `;
+
+                const [ result ] = this.db.execute(
+                    sql, [last_name,first_name, role_id, man_id]
+                )
+                if (result.affectedRows === 1) 
+                    return this.vwEmps()
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
 };
     
 /* , */
@@ -63,6 +100,4 @@ constructor (ion) {
 /* , */
 
 /* , */
-
-/* , */
-    module.exports = EmployeeData
+module.exports = EmployeeData

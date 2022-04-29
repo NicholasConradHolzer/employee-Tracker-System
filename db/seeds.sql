@@ -27,19 +27,12 @@ VALUES
 
     /*Management*/
     ('Osbourne', 'John', 2, 1), /*2*/
-    ('Ford', 'Lita', 2, 1), /*3*/
+
 
     /*Business Admin & Logistics/Human Resources*/
     ('Wylde', 'Zakk', 3, 2), /*4*/
-    ('Sambora', 'Richie', 4, 2), /*5*/
-    ('Torres', 'Tico', 3, 2), /*6*/
 
     /*Product Development Team*/
     ('Vai', 'Steve', 5, 3), /*7*/
-    ('Iomi', 'Tony', 5, 3), /*8*/
-    ('Slash', '???', 6, 3), /*9*/
-    ('Rose', 'Axl', 6, 3), /*10*/
-    ('Kelly', 'Machine-Gun', 7, 9);
-
 
 

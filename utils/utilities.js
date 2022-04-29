@@ -1,81 +1,123 @@
-const inq = require ('inquirer');
-
 const genDb = require('./dbGen');
+
 const EmployeeData = require ('./employeedata');
 const wutAct = require('./question');
-require ('dotenv').config();
 
+
+const inq = require ('inquirer');
 require('console.table');
 
 
-function dataMake() {
+/*~`~*/
+var cancellor = () => {
+    connection.destroy()
+        process.exit(0)
+}
 
-    const ion = genDb()
-    const empData = new EmployeeData(ion)
+async function dataMake() {
+    try {
+        const ion = genDb()
+        const empData = new EmployeeData(ion)
+        let exit = false
+    
+    while (exit === false) { 
 
-    const menu = wutAct.menuMain();     
-
+        const act = new wutAct()
+        const menu = act.menuMain() 
+        const viewMenu = act.viewMenu()
+        const editMenu = act.viewMenu()
+    
     switch(menu.choices) {
+        case 'View Data':
+            await inq.prompt(viewMenu);
+                break;
+        case 'Edit Data':
+            await inq.prompt(editMenu);
+                break;
+        case 'Exit':
+            cancellor();
+                break;
+    }
+    
+
+    switch(viewMenu.choices) {
 
         case 'View all Departments':
-            console.table(empData.vwDpts())
-                break;
-    
-        case 'Add a Department':
-            const dpts = wutAct.addDptQus(/*newDeptName*/);
-            console.table(empData.addDpt(dpts.newDeptName))
+            console.table(await empData.vwDpts())
                 break;
     
         case 'View all Employees':
-            console.table(empData.vwEmps())
-                break;
-    
-        case 'Add an employee':
-            const info = wutAct.addEmpQus();
-            const answer =  inq.prompt (info);
-            console.table(empData.addEmp(answer))
+            console.table(await empData.vwEmps())
                 break;
     
         case 'View All Roles':
-            console.table(empData.vwRls())
+            console.table(await empData.vwRls())
+                break;
+
+        case 'Exit':
+            cancellor();
+            break;
+           
+        default:
+            console.log()
+            break;
+    }
+
+    switch(editMenu.choices) {
+    
+        case 'Add a Department':
+            const dpts = act.addDptQus(/*newDeptName*/);
+            console.table(await empData.addDpt(dpts.newDeptName))
+                break;
+    
+        case 'Add an employee':
+            const info = act.addEmpQus();
+            const answer =  inq.prompt (info);
+            console.table(await empData.addEmp(answer))
                 break;
     
         case 'Add a role':
-            const roleInfo = wutAct.roleInfoQus();
+            const roleInfo = act.roleInfoQus();
             const roleAnswer = inq.prompt (roleInfo);
-            console.table (empData.addRole(roleAnswer))
+            console.table (await empData.addRole(roleAnswer))
                 break;
     
         case 'Update / Delete an employee':
-            const updateEmp =  wutAct.updEmpQus();
+            const updateEmp =  act.updEmpQus();
             const updateAnswer = inq.prompt (updateEmp);
-            console.table( empData.updateEmp(updateAnswer))
+            console.table(await empData.updateEmp(updateAnswer))
+
+        case 'Exit':
+            cancellor();
+            break;
 
         default:
-            break;
-                
+            break;     
     }
     
-    const updateEmp = wutAct.updEmpQus()
-    switch (updateEmp.choice) {   
+    const updateEmp = act.updEmpQus()
+    switch (updateEmp.choices) {   
 
         case 'Delete':
             console.table( empData.vwEmps())
-                const deleteEmp = wutAct.delEmpQus();
+                const deleteEmp = act.delEmpQus();
                 const deleteInfo =  inq.prompt (deleteEmp);
-                console.table ( empData.deleteEmp(deleteInfo))
+                console.table (await empData.deleteEmp(deleteInfo))
                     break;
 
         case 'Exit':
-            ion.destroy()
-                process.exit(0)
+            cancellor();
 
         default:
             break;
     
     }
-
-}
+}}
+    catch (err) {
+        if (err) console.log(err)
+    }
+ 
+} 
 
 
 module.exports = dataMake;

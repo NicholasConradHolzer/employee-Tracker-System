@@ -4,14 +4,38 @@ const inq = require ('inquirer');
 class wutAct {
 
     menuMain() { 
-        inq.prompt({
+         inq.prompt ({
             type: 'list',
             name: 'Menu',
             message: 'Manage Employee Data:',
             choices: [
+                'View Data',
+                'Edit Data',
+                'Exit'
+            ]
+        })
+    }
+/* , */
+    viewMenu() { 
+         inq.prompt ({
+            type: 'list',
+            name: 'View_Menu',
+            message: 'View Employee Data:',
+            choices: [
                 'View All Departments',
                 'View All Roles',
                 'View All Employees',
+                'Exit'
+            ]
+        })
+    }
+/* , */
+    editMenu() { 
+         inq.prompt ({
+            type: 'list',
+            name: 'Edit_Menu',
+            message: 'Manage Employee Data:',
+            choices: [
                 'Add Department',
                 'Add Role',
                 'Add Employee',
@@ -22,7 +46,7 @@ class wutAct {
     }
 /* , */
     addDptQus() {
-        inq.prompt({
+         inq.prompt ({
             type:'input',
             message: 'What is the name of the new department?',
             name: 'newDeptName',
