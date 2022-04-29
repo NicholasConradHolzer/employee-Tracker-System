@@ -57,12 +57,6 @@ class wutAct {
     addEmpQus() {
         [
             {
-                type: 'input',
-                name: 'first_name',
-                message: "What is the employee's first name?",
-                validate: (answer) => answer !== '',
-            },
-            {
                 type:'input',
                 name: 'last_name',
                 message: "What is the employee's last name?",
@@ -70,16 +64,22 @@ class wutAct {
             },
             {
                 type: 'input',
-                name: 'role_id',
-                message: "What is the employee's role id",
+                name: 'first_name',
+                message: "What is the employee's first name?",
                 validate: (answer) => answer !== '',
             },
-            {
-                type:'input',
-                name: 'manager_id',
-                message: "What is the manager_id?",
-                validate: (answer) => answer !== '',
-            },
+            // {
+            //     type: 'input',
+            //     name: 'role_id',
+            //     message: "What is the employee's role id",
+            //     validate: (answer) => answer !== '',
+            // },
+            // {
+            //     type:'input',
+            //     name: 'manager_id',
+            //     message: "What is the manager id?",
+            //     validate: (answer) => answer !== '',
+            // },
         ]
     }
 /* , */
@@ -88,13 +88,13 @@ class wutAct {
             {
                 type: 'input',
                 name: 'title',
-                message: "What is the new Role title?",
+                message: "What is the new Role's title?",
                 validate: (answer) => answer !== '',
             },
             {
                 type: 'input',
                 name: 'salary',
-                message: "What's the new Role's salary?",
+                message: "What is the new Role's salary?",
                 validate: (answer)=> answer !== '',
             },
             {
@@ -110,7 +110,7 @@ class wutAct {
         inq.prompt(
             {
                 type: 'list',
-                name: 'update/delete',
+                name: 'update_delete',
                 message: "Update or Delete employee?",
                 choices: [
                     'Update',
@@ -125,7 +125,7 @@ class wutAct {
             {
                 type: 'input',
                 name: 'delete',
-                message: "What Employee would you like to delete? (Enter Employee ID)",
+                message: "Which Employee would you like to delete? (Enter Employee ID)",
                     validate: (answer) => answer !== ''
             }
         )

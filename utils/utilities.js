@@ -26,7 +26,7 @@ async function dataMake() {
         const menu = act.menuMain() 
         const viewMenu = act.viewMenu()
         const editMenu = act.viewMenu()
-    
+    // .choices signifier used to deactivate infinite loop bug
     switch(menu.choices) {
         case 'View Data':
             await inq.prompt(viewMenu);
@@ -40,7 +40,7 @@ async function dataMake() {
     }
     
 
-    switch(viewMenu.choices) {
+    switch(viewMenu) {
 
         case 'View all Departments':
             console.table(await empData.vwDpts())
@@ -56,14 +56,14 @@ async function dataMake() {
 
         case 'Exit':
             cancellor();
-            break;
+                break;
            
         default:
             console.log()
-            break;
+                break;
     }
 
-    switch(editMenu.choices) {
+    switch(editMenu) {
     
         case 'Add a Department':
             const dpts = act.addDptQus(/*newDeptName*/);
@@ -86,17 +86,18 @@ async function dataMake() {
             const updateEmp =  act.updEmpQus();
             const updateAnswer = inq.prompt (updateEmp);
             console.table(await empData.updateEmp(updateAnswer))
+                break;
 
         case 'Exit':
             cancellor();
-            break;
+                break;
 
         default:
             break;     
     }
     
     const updateEmp = act.updEmpQus()
-    switch (updateEmp.choices) {   
+    switch (updateEmp) {   
 
         case 'Delete':
             console.table( empData.vwEmps())
@@ -107,14 +108,17 @@ async function dataMake() {
 
         case 'Exit':
             cancellor();
-
+                break;
+                
         default:
             break;
-    
     }
-}}
+    
+}
+}
     catch (err) {
         if (err) console.log(err)
+            return;
     }
  
 } 

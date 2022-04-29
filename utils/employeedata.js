@@ -57,14 +57,14 @@ class EmployeeData {
                     return this.vwRls()
         }
     /* , */
-        addEmp ({ last_name, first_name, role_id, man_id}) {
+        addEmp ({ last_name, first_name, role_id, dpt_id, man_id }) {
             try {
-                console.log(last_name, first_name, role_id, man_id)
+                console.log(last_name, first_name, role_id, dpt_id, man_id )
                 const sql = `
                     INSERT INTO employee (last_name, first_name, role_id, dpt_id, man_id) VALUES (?, ?, ?, ?, ?)
                 `;
                 const [ result ] = this.db.execute(
-                    sql, [last_name,first_name, role_id, man_id]
+                    sql, [last_name, first_name, role_id, dpt_id, man_id]
                 )
                     if (result.affectedRows === 1) 
                         return this.vwEmps()
@@ -72,25 +72,26 @@ class EmployeeData {
 
             catch (error) {
                 console.log(error)
-                    return 'enter valid roles_id or man_id\n'
+                    return 'enter valid id'
             }
         }
     /* , */
-        deleteEmp ({ last_name, first_name, role_id, man_id}) {
+        deleteEmp ({last_name, first_name, role_id, dpt_id, man_id }) {
             try {
-                console.log(last_name, first_name, role_id, man_id)
+                console.log(last_name, first_name, role_id, dpt_id, man_id )
                 const sql = `
-                    DELETE FROM employee (last_name, first_name, role_id, man_id) VALUES (?, ?, ?,?)
+                    DELETE FROM employee (last_name, first_name, role_id, dpt_id, man_id) VALUES (?, ?, ?,?)
                 `;
 
                 const [ result ] = this.db.execute(
-                    sql, [last_name,first_name, role_id, man_id]
+                    sql, [last_name, first_name, role_id, dpt_id, man_id ]
                 )
                 if (result.affectedRows === 1) 
                     return this.vwEmps()
             }
             catch (err) {
                 console.log(err)
+                    return;
             }
         }
 };

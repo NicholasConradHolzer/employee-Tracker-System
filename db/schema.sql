@@ -4,8 +4,6 @@ DROP DATABASE IF EXISTS emp_db;
 CREATE DATABASE emp_db;
 
 
-use emp_db;
-
 
 DROP TABLE IF EXISTS departments;
 
