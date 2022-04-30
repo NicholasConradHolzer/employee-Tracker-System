@@ -16,22 +16,25 @@ class EmployeeData {
             const sqlCOM = `
                 SELECT * FROM roles
             `;
-            const [rows]= this.db.query(sqlCOM)
+            const [ rows ]= this.db.query(sqlCOM)
                 return rows
         }
     /* , */
         vwEmps() {
             const sqlCOM = `
-                SELECT employee.last_name, employee.first_name, employee.id, 
-                roles.title AS title, 
-                department.dpt_name AS department, 
-                roles.salary AS salary,
-                CONCAT(man.first_name, ' ', man.last_name) AS manager
-                FROM employee e
-                LEFT JOIN roles ON e.role_id= roles.id
-                LEFT JOIN department ON roles.dpt_id = department.dpt_id
-                LEFT JOIN employee m ON m.id = e.man_id
-            `
+                SELECT * FROM employee
+            `;
+            // `
+            //     SELECT employee.last_name, employee.first_name, employee.id, 
+            //     roles.title AS title, 
+            //     department.dpt_name AS department, 
+            //     roles.salary AS salary,
+            //     CONCAT(man.first_name, ' ', man.last_name) AS manager
+            //     FROM employee e
+            //     LEFT JOIN roles ON e.role_id= roles.id
+            //     LEFT JOIN department ON roles.dpt_id = department.dpt_id
+            //     LEFT JOIN employee m ON m.id = e.man_id
+            // `
             const [ rows ] = this.db.query(sqlCOM)
                 return rows
         }        
